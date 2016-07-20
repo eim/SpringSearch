@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Hibernate Search</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+
+<p th:if="${prepared == false}">
+    <strong>Index not prepared yet.</strong>
+    <p th:if="${started == true}">
+        Files update and Indexing have been started. Please wait.
+    </p>
+    <p th:if="${started == false}">
+        Run update files manually "<a href='/updatefiles'>Click: indexing</a>"
+    </p>
+    <p th:if="${indexing == true}">
+        Indexing has been started. Please wait.
+    </p>
+</p>
+
+<p th:if="${prepared == true}">
+    <table border="1">
+        <tr>
+            <th>Type</th>
+            <th>Words count</th>
+            <th>Terms count</th>
+            <th>Term frequency</th>
+        </tr>
+        <tr>
+            <td>Term in queries</td>
+            <td th:text="${totalQueryCount}"/>
+            <td th:text="${currentQueryCount}"/>
+            <td th:text="${frequencyQuery}"/>
+        </tr>
+        <tr>
+            <td>Term in files</td>
+            <td th:text="${totalTermCount}"/>
+            <td th:text="${currentTermCount}"/>
+            <td th:text="${frequencyTerm}"/>
+        </tr>
+    </table>
+
+    <ol>
+        <li th:each="file : ${listOfFiles}">
+            <b><span th:text="${file}"></span></b>
+        </li>
+    </ol>
+
+    <p th:if="${listOfFiles.isEmpty()}">
+        <strong>Hint</strong>: the query "<a href='/search?q=whatsup'>Click: whatsup</a>"
+        should return some results.
+    </p>
+
+</p>
+
+
+<br />
+<hr />
+
+<p>
+    <strong>Hint</strong>: load new files "<a href='/updatefiles'>Click: update</a>"
+</p>
+<br />
+<p>
+    <strong>Hint</strong>: reindex all entities "<a href='/indexing'>Click: reindex.</a>"
+    <strong>It will take for a long time!</strong>
+</p>
+
+</body>
+
+</html>
