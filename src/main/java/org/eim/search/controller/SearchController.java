@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.eim.search.entity.FilePartEntity;
@@ -38,9 +39,13 @@ public class SearchController {
   @Autowired
   private IndexingService indexingService;
 
+  private Pattern pattern = Pattern.compile("[^0-9A-Za-z]");
+
   @RequestMapping(path = PATH)
   public String search(String q, Model model)
       throws IOException, InterruptedException {
+
+    q = pattern.matcher(q).replaceAll("");
 
     if (!fileMonitoringSerive.prepared()) {
       model.addAttribute("started", fileMonitoringSerive.started());
