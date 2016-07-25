@@ -9,9 +9,13 @@ Desired OS:
 - Linux
 - MacOS (with Docker ver. 1.12 preferable)
 
-##Define folder with text files, which will be indexed.
+##Define properties:
 In src/main/resources/application.properties
-Property: source.files.directory
+define a folder with the text files, which will be indexed:
+- <em>source.files.directory</em>
+and an index folder:
+- <em>spring.jpa.properties.hibernate.search.default.indexBase</em>
+
 
 ##Build commands:
 - <em>clean:</em> ./gradlew clean
@@ -19,6 +23,9 @@ Property: source.files.directory
 - <em>docker image:</em> ./gradlew buildDocker
 - <em>start container:</em> ./gradlew runDocker
 - <em>all in one:</em> ./gradlew clean build buildDocker runDocker
+
+##Integration test command:
+- <em>test:</em> ./gradlew integrationTest
 
 ##Open browser 
 Open this address in a browser: http://localhost:8090
