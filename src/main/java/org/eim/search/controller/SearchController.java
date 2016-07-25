@@ -17,11 +17,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
-/**
- * @author eim
- * @since 2016-07-16
- */
 @Controller
 public class SearchController {
 
@@ -42,7 +39,7 @@ public class SearchController {
   private Pattern pattern = Pattern.compile("[^0-9A-Za-z]");
 
   @RequestMapping(path = PATH)
-  public String search(String q, Model model)
+  public ModelAndView search(String q, Model model)
       throws IOException, InterruptedException {
 
     q = pattern.matcher(q).replaceAll("");
@@ -50,13 +47,13 @@ public class SearchController {
     if (!fileMonitoringSerive.prepared()) {
       model.addAttribute("started", fileMonitoringSerive.started());
       model.addAttribute("prepared", false);
-      return "search";
+      return new ModelAndView("search");
     }
 
     if (indexingService.getStatus()) {
       model.addAttribute("indexing", true);
       model.addAttribute("prepared", false);
-      return "search";
+      return new ModelAndView("search");
     }
 
     fileMonitoringSerive.storeData();
@@ -91,7 +88,7 @@ public class SearchController {
 
     model.addAttribute("listOfFiles", listOfFiles);
 
-    return "search";
+    return new ModelAndView("search");
   }
 
   @RequestMapping("/")

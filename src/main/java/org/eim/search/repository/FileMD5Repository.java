@@ -7,10 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * @author eim
- * @since 2016-07-16
- */
 @Transactional
 @Repository
 public interface FileMD5Repository extends JpaRepository<FileMD5Entity, Long> {

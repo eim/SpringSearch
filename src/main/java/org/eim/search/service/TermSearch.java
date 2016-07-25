@@ -5,18 +5,14 @@ import org.apache.lucene.search.TermQuery;
 import org.eim.search.entity.FilePartEntity;
 import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
-/**
- * @author eim
- * @since 2016-07-16
- */
-@Component
+@Service
 @Transactional
 public class TermSearch extends AbstractSearch {
 
@@ -34,6 +30,6 @@ public class TermSearch extends AbstractSearch {
 
   @Override
   public long getTotalTermCount() throws IOException {
-    return getTotalTermCount(FilePartEntity.class,"entry");
+    return getTotalTermCount(FilePartEntity.class, "entry");
   }
 }

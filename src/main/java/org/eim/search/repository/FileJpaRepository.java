@@ -8,10 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * @author eim
- * @since 2016-07-16
- */
 @Transactional
 @Repository
 public interface FileJpaRepository extends JpaRepository<FilePartEntity,Long> {

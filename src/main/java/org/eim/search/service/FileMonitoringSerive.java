@@ -1,5 +1,16 @@
 package org.eim.search.service;
 
+import org.eim.search.entity.FileMD5Entity;
+import org.eim.search.entity.FilePartEntity;
+import org.eim.search.repository.FileJpaRepository;
+import org.eim.search.repository.FileMD5Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -13,18 +24,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
-import org.eim.search.entity.FileMD5Entity;
-import org.eim.search.entity.FilePartEntity;
-import org.eim.search.repository.FileJpaRepository;
-import org.eim.search.repository.FileMD5Repository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-
-@Component
+@Service
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 @Transactional
 public class FileMonitoringSerive {

@@ -21,15 +21,6 @@ RUN echo "CREATE DATABASE IF NOT EXISTS fullTestSearchDB" > /docker-entrypoint-i
 
 ADD springsearch-0.0.1-SNAPSHOT.jar /app.jar
 RUN sh -c 'touch /app.jar'
-#
-#ENV SERVER_PORT \
-#    SPRING_DATASOURCE_URL \
-#    SPRING_DATASOURCE_USERNAME \
-#    SPRING_DATASOURCE_PASSWORD \
-#    SPRING_DATASOURCE_DRIVER-CLASS-NAME \
-#    LOGGING_LEVEL_ROOT
-
-#ENTRYPOINT java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar
 
 COPY docker-entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]

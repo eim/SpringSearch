@@ -1,8 +1,12 @@
 package org.eim.search.service;
 
+import java.io.IOException;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.Term;
-import org.eim.search.entity.QueryEntity;
 import org.eim.search.repository.FileJpaRepository;
 import org.eim.search.repository.QueryRepository;
 import org.hibernate.Session;
@@ -11,16 +15,6 @@ import org.hibernate.search.Search;
 import org.hibernate.search.SearchFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.IOException;
-import java.util.Optional;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-/**
- * @author eim
- * @since 2016-07-17
- */
 public abstract class AbstractSearch {
 
 
@@ -48,8 +42,7 @@ public abstract class AbstractSearch {
    * @throws IOException
    */
   public long getTermCount(Class<?> clazz, String field, String term) throws IOException {
-    try (IndexReader indexReader =
-             getSearchFactory().getIndexReaderAccessor().open(clazz)) {
+    try (IndexReader indexReader = getSearchFactory().getIndexReaderAccessor().open(clazz)) {
       return indexReader.totalTermFreq(new Term(field, term));
     }
   }
@@ -62,8 +55,7 @@ public abstract class AbstractSearch {
    * @throws IOException
    */
   long getTotalTermCount(Class<?> clazz, String field) throws IOException {
-    try (IndexReader indexReader =
-             getSearchFactory().getIndexReaderAccessor().open(clazz)) {
+    try (IndexReader indexReader = getSearchFactory().getIndexReaderAccessor().open(clazz)) {
       return indexReader.getSumTotalTermFreq(field);
     }
   }

@@ -31,6 +31,21 @@ repositories {
 	mavenCentral()
 }
 
+sourceSets {
+	integrationTest {
+		java {
+			compileClasspath += main.output + test.output
+			runtimeClasspath += main.output + test.output
+			srcDir file('src/itest/java')
+		}
+		resources.srcDir file('src/itest/resources')
+	}
+}
+
+configurations {
+	integrationTestCompile.extendsFrom testCompile
+	integrationTestRuntime.extendsFrom testRuntime
+}
 
 dependencies {
 	compile("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
@@ -38,11 +53,20 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}")
 	compile("org.hibernate:hibernate-search-orm:${hibernateVersion}")
 	compile "mysql:mysql-connector-java"
+	compile group: 'org.jsoup', name: 'jsoup', version: '1.9.2'
+	testCompile('org.springframework:spring-test')
 	testCompile("junit:junit:4.12")
+	testCompile('org.mockito:mockito-core')
 	testCompile("org.hsqldb:hsqldb:2.3.3")
+	testCompile('org.springframework:spring-test')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile('com.connect-group:thymeleaf-tdd:+')
 }
 
+task integrationTest(type: Test) {
+	testClassesDir = sourceSets.integrationTest.output.classesDir
+	classpath = sourceSets.integrationTest.runtimeClasspath
+}
 
 processResources {
 	filesMatching('*.properties') {

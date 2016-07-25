@@ -1,5 +1,6 @@
 package org.eim.search.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,10 +26,6 @@ import org.hibernate.search.annotations.TermVector;
 import org.hibernate.search.annotations.TokenFilterDef;
 import org.hibernate.search.annotations.TokenizerDef;
 
-/**
- * @author eim
- * @since 2016-07-16
- */
 @Indexed
 @Entity
 @AnalyzerDef(name = "commonanalyzer",
@@ -58,6 +55,7 @@ public class FilePartEntity {
   private String part;
 
   @Lob
+  @Column(length = 2000)
   @Analyzer(definition = "commonanalyzer")
   @Field(index = Index.YES, norms = Norms.YES, termVector = TermVector.WITH_POSITION_OFFSETS, store = Store.YES)
   private String entry;

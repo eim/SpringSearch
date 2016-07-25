@@ -1,13 +1,10 @@
 package org.eim.search.service;
 
-import groovy.lang.Singleton;
-
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -15,11 +12,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-/**
- * @author eim
- * @since 2016-07-17
- */
-@Component
+@Service
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 @Transactional
 public class IndexingService {
@@ -31,14 +24,14 @@ public class IndexingService {
 
   public void reindex() {
     if (!ONLYONCE.get()) {
-      ONLYONCE.compareAndSet(false,true);
+      ONLYONCE.compareAndSet(false, true);
       FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
       try {
         fullTextEntityManager.createIndexer().startAndWait();
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
-      ONLYONCE.compareAndSet(true,false);
+      ONLYONCE.compareAndSet(true, false);
     }
   }
 
