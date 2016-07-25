@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 @Service
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 @Transactional
-public class FileMonitoringSerive {
+public class FileMonitoringService {
 
   @Value("${source.files.directory}")
   private String FILES_DIRECTORY;

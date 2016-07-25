@@ -12,7 +12,7 @@ import java.util.List;
 
 import org.eim.search.controller.SearchController;
 import org.eim.search.entity.FilePartEntity;
-import org.eim.search.service.FileMonitoringSerive;
+import org.eim.search.service.FileMonitoringService;
 import org.eim.search.service.IndexingService;
 import org.eim.search.service.QuerySearch;
 import org.eim.search.service.TermSearch;
@@ -42,7 +42,7 @@ public class SearchTest {
   private QuerySearch querySearch;
 
   @Mock
-  private FileMonitoringSerive fileMonitoringSerive;
+  private FileMonitoringService fileMonitoringService;
 
   @Mock
   private IndexingService indexingService;
@@ -76,7 +76,7 @@ public class SearchTest {
     long totalTermCount = 1000;
     float frequencyTerm = (totalTermCount > 0 ? (float) currentTermCount / totalTermCount : 0.0f);
 
-    when(fileMonitoringSerive.prepared()).thenReturn(true);
+    when(fileMonitoringService.prepared()).thenReturn(true);
     when(indexingService.getStatus()).thenReturn(false);
     when(querySearch.getTermCount(anyString())).thenReturn((long) 10);
     when(querySearch.getTotalTermCount()).thenReturn((long) 100);

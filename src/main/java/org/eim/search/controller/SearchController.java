@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.eim.search.entity.FilePartEntity;
-import org.eim.search.service.FileMonitoringSerive;
+import org.eim.search.service.FileMonitoringService;
 import org.eim.search.service.IndexingService;
 import org.eim.search.service.QuerySearch;
 import org.eim.search.service.TermSearch;
@@ -31,7 +31,7 @@ public class SearchController {
   private QuerySearch querySearch;
 
   @Autowired
-  private FileMonitoringSerive fileMonitoringSerive;
+  private FileMonitoringService fileMonitoringService;
 
   @Autowired
   private IndexingService indexingService;
@@ -44,8 +44,8 @@ public class SearchController {
 
     q = pattern.matcher(q).replaceAll("");
 
-    if (!fileMonitoringSerive.prepared()) {
-      model.addAttribute("started", fileMonitoringSerive.started());
+    if (!fileMonitoringService.prepared()) {
+      model.addAttribute("started", fileMonitoringService.started());
       model.addAttribute("prepared", false);
       return new ModelAndView("search");
     }
@@ -56,7 +56,7 @@ public class SearchController {
       return new ModelAndView("search");
     }
 
-    fileMonitoringSerive.storeData();
+    fileMonitoringService.storeData();
 
     long currentQueryCount = querySearch.getTermCount(q) + 1; // plus one - current value
     long totalQueryCount = querySearch.getTotalTermCount();
